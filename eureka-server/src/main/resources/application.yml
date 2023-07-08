@@ -1,0 +1,14 @@
+
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka server
+  banner:
+    location: banner.txt
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
