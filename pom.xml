@@ -5,6 +5,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>student</module>
+        <module>eureka-server</module>
+        <module>clients</module>
+        <module>teacher</module>
+        <module>notification</module>
+        <module>videos</module>
+        <module>courses</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
