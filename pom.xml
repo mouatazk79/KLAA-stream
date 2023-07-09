@@ -12,6 +12,7 @@
         <module>videos</module>
         <module>courses</module>
         <module>api-gateway</module>
+        <module>users</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
