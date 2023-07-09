@@ -19,43 +19,30 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>klaa.mouataz</groupId>
-    <artifactId>KLAAmouataz</artifactId>
+    <artifactId>KLAAschool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>KLAAmouataz</name>
-    <description>KLAAmouataz</description>
+    <name>KLAAschool</name>
+    <description>KLAAschool</description>
     <properties>
         <spring.boot.maven.plugin.version>2.5.9</spring.boot.maven.plugin.version>
         <java.version>17</java.version>
-        <spring.cloud-version>2021.0.0</spring.cloud-version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
     <dependencyManagement>
         <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>2022.0.1</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud-version}</version>
-                <scope>import</scope>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -73,14 +60,14 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.maven.plugin.version}</version>
+                    <version>2.7.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
 
 
 </project>
