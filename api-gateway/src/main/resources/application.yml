@@ -1,0 +1,16 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: api-gateway
+  banner:
+    location: banner.txt
+  cloud:
+    gateway:
+      routes:
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

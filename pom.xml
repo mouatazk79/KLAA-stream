@@ -11,6 +11,7 @@
         <module>notification</module>
         <module>videos</module>
         <module>courses</module>
+        <module>api-gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
