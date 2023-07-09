@@ -1,0 +1,23 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: teacher
+  datasource:
+    url: jdbc:postgresql://localhost:5432/teacher
+    username: root
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  banner:
+    location: banner.txt
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
