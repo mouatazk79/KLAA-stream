@@ -1,10 +1,12 @@
 server:
-  port: 8085
+  port: 8083
 spring:
   application:
-    name: teacher
+    name: courses
+  banner:
+    location: banner.txt
   datasource:
-    url: jdbc:postgresql://localhost:5432/teacher
+    url: jdbc:postgresql://localhost:5432/courses
     username: root
     password: password
   jpa:
@@ -15,8 +17,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  banner:
-    location: banner.txt
+
 eureka:
   client:
     service-url:

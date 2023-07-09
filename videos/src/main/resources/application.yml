@@ -1,0 +1,20 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: video
+  banner:
+    location: banner.txt
+  data:
+    mongodb:
+      password: password
+      username: root
+      database: videos
+      port: 27017
+      host: localhost
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
