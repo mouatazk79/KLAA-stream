@@ -16,6 +16,10 @@ spring:
           uri: lb://TEACHER
           predicates:
             - Path= /api/v1/teachers/**
+        - id: notification
+          uri: lb://NOTIFICATION
+          predicates:
+            - Path= /api/v1/notifications/**
 
 
 
