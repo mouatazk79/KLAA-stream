@@ -8,9 +8,10 @@ spring:
   cloud:
     gateway:
       routes:
-      -id:
-       uri:
-       predicate:
+        - id: student
+          uri: lb://STUDENT
+          predicates:
+            - Path= /api/v1/students/**
 
 
 
