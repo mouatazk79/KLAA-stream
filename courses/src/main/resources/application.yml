@@ -9,6 +9,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/courses
     username: root
     password: password
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/courses
+    username: root
+    password: password
+    pool:
+      max-size: 20
+      initial-size: 10
   jpa:
     hibernate:
       ddl-auto: create-drop
