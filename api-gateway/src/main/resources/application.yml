@@ -8,6 +8,10 @@ spring:
   cloud:
     gateway:
       routes:
+      -id:
+       uri:
+       predicate:
+
 
 
 eureka:
