@@ -12,6 +12,10 @@ spring:
           uri: lb://STUDENT
           predicates:
             - Path= /api/v1/students/**
+        - id: teacher
+          uri: lb://TEACHER
+          predicates:
+            - Path= /api/v1/teachers/**
 
 
 
