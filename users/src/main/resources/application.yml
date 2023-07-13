@@ -1,11 +1,22 @@
 server:
-  port: 8086
+  port: 8087
 spring:
   application:
-    name: users
+    name: user
   banner:
     location: banner.txt
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user
+    username: root
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
 
 
 
