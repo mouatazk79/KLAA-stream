@@ -27,6 +27,19 @@ public class JwtService {
     public String generateToken(UserDetails userDetails){
         return generateToken(new HashMap<>(),userDetails);
     }
+    public boolean isTokenValid(String token,UserDetails userDetails){
+        final String userName=extractUserName(token);
+        return (userName.equals(userDetails.getUsername()))&&!tokenIsExpired(token);
+    }
+
+    private boolean tokenIsExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaim(token,Claims::getExpiration);
+    }
+
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
         return Jwts.builder()
                 .setClaims(extraClaims)
