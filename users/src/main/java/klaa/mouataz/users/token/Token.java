@@ -1,6 +1,7 @@
 package klaa.mouataz.users.token;
 
 import jakarta.persistence.*;
+import klaa.mouataz.users.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,7 @@ public class Token {
     private TokenType tokenType;
     private boolean expired;
     private boolean revoked;
+    @ManyToOne
+    @JoinColumn(name = "_userId")
+    private User user;
 }

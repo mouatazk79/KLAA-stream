@@ -2,6 +2,7 @@ package klaa.mouataz.users.model;
 
 import jakarta.persistence.*;
 import klaa.mouataz.users.enumerations.Role;
+import klaa.mouataz.users.token.Token;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 @Entity
 @Table(name = "_user")
@@ -29,6 +31,8 @@ public class  User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String password;
+    @OneToMany(mappedBy = "user")
+    private Set<Token> token;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
