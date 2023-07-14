@@ -7,12 +7,18 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
     private static final String SECRET_KEY ="aWq4MYiKKoprFtYisPOXp7upttzfUOMT/3w1aOjdcSI2v/9+RrlTEXznB9yGM8U1YVV/8oh0UkSIj85XFnvVtQ==\n";
     public String extractUserName(String jwtToken) {
         return null;
+    }
+    public <T> T extractClaim(String token, Function<Claims,T> claimsResolver ){
+        final Claims claims=extractAllClaims(token);
+        return claimsResolver.apply(claims);
+
     }
     private Claims extractAllClaims(String token){
         return Jwts
