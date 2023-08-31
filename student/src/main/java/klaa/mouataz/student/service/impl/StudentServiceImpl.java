@@ -6,6 +6,7 @@ import klaa.mouataz.student.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 @Slf4j
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
+    private final RestTemplate restTemplate;
     @Override
     public List<Student> getStudents() {
         return studentRepository.findAll();
@@ -39,6 +41,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+        restTemplate.getForObject(
+                "localhost:NOTIFICATION/api/v1/notifications"
+                ,Noti
+        );
         return studentRepository.save(student);
     }
 }
