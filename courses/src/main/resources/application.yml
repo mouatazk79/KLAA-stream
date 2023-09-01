@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: courses
+  zipkin:
+    base-url: http://localhost:9411
   banner:
     location: banner.txt
   datasource:
