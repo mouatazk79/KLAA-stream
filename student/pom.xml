@@ -39,6 +39,11 @@
             <version>4.0.2</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+            <version>3.1.9</version>
+        </dependency>
+        <dependency>
             <groupId>klaa.mouataz</groupId>
             <artifactId>clients</artifactId>
             <version>0.0.1-SNAPSHOT</version>
