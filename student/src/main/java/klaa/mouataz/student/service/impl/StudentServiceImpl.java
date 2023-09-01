@@ -1,5 +1,6 @@
 package klaa.mouataz.student.service.impl;
 
+import klaa.mouataz.clients.fraud.Notification;
 import klaa.mouataz.student.model.Student;
 import klaa.mouataz.student.repos.StudentRepository;
 import klaa.mouataz.student.service.StudentService;
@@ -43,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
     public Student addStudent(Student student) {
         restTemplate.getForObject(
                 "localhost:NOTIFICATION/api/v1/notifications"
-                ,Noti
+                , Notification.class
         );
         return studentRepository.save(student);
     }
