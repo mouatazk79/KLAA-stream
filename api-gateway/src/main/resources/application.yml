@@ -9,14 +9,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: student
-          uri: lb://STUDENT
+        - id: staff
+          uri: lb://STAFF
           predicates:
-            - Path= /api/v1/students/**
-        - id: teacher
-          uri: lb://TEACHER
-          predicates:
-            - Path= /api/v1/teachers/**
+            - Path= /api/v1/staffs/**
         - id: notification
           uri: lb://NOTIFICATION
           predicates:
@@ -31,8 +27,7 @@ spring:
             - Path= /api/v1/users/**
     compatibility-verifier:
       enabled: false
-  zipkin:
-    base-url: http://localhost:9411
+
 
 
 
