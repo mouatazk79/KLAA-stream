@@ -10,6 +10,7 @@ spring:
   banner:
     location: banner.txt
 
+
 eureka:
   client:
     fetch-registry: false

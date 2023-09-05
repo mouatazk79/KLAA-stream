@@ -5,6 +5,7 @@ spring:
     name: api-gateway
   banner:
     location: banner.txt
+
   cloud:
     gateway:
       routes:
@@ -28,6 +29,8 @@ spring:
           uri: lb://USER
           predicates:
             - Path= /api/v1/users/**
+    compatibility-verifier:
+      enabled: false
   zipkin:
     base-url: http://localhost:9411
 
