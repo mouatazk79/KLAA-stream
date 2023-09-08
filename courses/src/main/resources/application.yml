@@ -3,29 +3,18 @@ server:
 spring:
   application:
     name: courses
-  zipkin:
-    base-url: http://localhost:9411
   banner:
     location: banner.txt
-  datasource:
-    url: jdbc:postgresql://localhost:5432/courses
-    username: root
-    password: password
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/courses
-    username: root
-    password: password
-    pool:
-      max-size: 20
-      initial-size: 10
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: true
+  data:
+    mongodb:
+      password: password
+      username: root
+      database: courses
+      port: 27017
+      host: localhost
+      authentication-database: admin
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:

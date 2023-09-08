@@ -22,7 +22,14 @@ public class CourseController {
     }
     @PostMapping
     public Mono<Course> addCourse(@RequestBody Course course){
-        return courseService.addCourse(course);
+        Course newCourse=Course.builder()
+                .id(1L)
+                .name("ccna")
+                .teacherId(1L)
+                .field("networking")
+                .description("hhhhhh")
+                .build();
+        return courseService.addCourse(newCourse);
     }
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable("courseId")Long id){
