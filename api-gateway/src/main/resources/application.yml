@@ -17,14 +17,18 @@ spring:
           uri: lb://NOTIFICATION
           predicates:
             - Path= /api/v1/notifications/**
-        - id: course
-          uri: lb://COURSE
+        - id: courses
+          uri: lb://COURSES
           predicates:
             - Path= /api/v1/courses/**
         - id: user
           uri: lb://USER
           predicates:
             - Path= /api/v1/users/**
+        - id: video
+          uri: lb://VIDEO
+          predicates:
+            - Path= /api/v1/videos/**
     compatibility-verifier:
       enabled: false
 

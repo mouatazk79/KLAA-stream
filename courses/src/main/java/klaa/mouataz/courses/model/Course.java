@@ -19,6 +19,7 @@ public class Course {
     private String name;
     private String field;
     private String description;
+    private byte[] imageData;
 
 
 }

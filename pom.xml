@@ -11,6 +11,8 @@
         <module>api-gateway</module>
         <module>users</module>
         <module>staff</module>
+        <module>documents</module>
+        <module>mail-sender</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -64,35 +66,35 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.7.2</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                    <version>3.3.2</version>
-                    <configuration>
-                        <from>
-                            <image>
-                                eclipse-temurin:17
-                            </image>
+<!--        <pluginManagement>-->
+<!--            <plugins>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                    <version>2.7.2</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>repackage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>com.google.cloud.tools</groupId>-->
+<!--                    <artifactId>jib-maven-plugin</artifactId>-->
+<!--                    <version>3.3.2</version>-->
+<!--                    <configuration>-->
+<!--                        <from>-->
+<!--                            <image>-->
+<!--                                eclipse-temurin:17-->
+<!--                            </image>-->
 
-                        </from>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+<!--                        </from>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+<!--            </plugins>-->
+<!--        </pluginManagement>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

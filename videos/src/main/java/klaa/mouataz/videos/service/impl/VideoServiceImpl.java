@@ -30,4 +30,9 @@ public class VideoServiceImpl implements VideoService {
     public Mono<Video> updateVideo(Video video) {
         return videoRepository.save(video);
     }
+
+    @Override
+    public Mono<Video> addVideo(Video video) {
+        return videoRepository.save(video);
+    }
 }

@@ -9,5 +9,6 @@ public interface VideoService {
     Mono<Video> getVideo(Long id);
     void deleteVideo(Long id);
     Mono<Video> updateVideo(Video video);
+    Mono<Video> addVideo(Video video);
 
 }

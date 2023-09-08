@@ -3,9 +3,13 @@ package klaa.mouataz.courses.controller;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,15 +25,22 @@ public class CourseController {
         return courseService.getCourse(id);
     }
     @PostMapping
-    public Mono<Course> addCourse(@RequestBody Course course){
-        Course newCourse=Course.builder()
-                .id(1L)
-                .name("ccna")
-                .teacherId(1L)
-                .field("networking")
-                .description("hhhhhh")
-                .build();
-        return courseService.addCourse(newCourse);
+    public Mono<Course> addCourse(@RequestBody Course course) {
+        return courseService.addCourse(course);
+    }
+    @PostMapping("/{id}")
+    public String addCourseImage(@PathVariable("id")Long id,@RequestParam("image") MultipartFile image) {
+       Mono<Course> course1=courseService.getCourse(id);
+        return course1.flatMap(course -> {
+            try {
+                course.setImageData(image.getBytes());
+                return courseService.addCourse(course)
+                        .then(Mono.just("Image added successfully"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Mono.just("Error uploading image");
+            }
+        }).block();
     }
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable("courseId")Long id){
