@@ -1,0 +1,22 @@
+server:
+  port: 8093
+spring:
+  application:
+    name: documents
+  banner:
+    location: banner.txt
+  data:
+    mongodb:
+      password: password
+      username: root
+      database: documents
+      port: 27017
+      host: localhost
+      authentication-database: admin
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
