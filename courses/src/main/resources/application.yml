@@ -15,6 +15,9 @@ spring:
       authentication-database: admin
   main:
     allow-bean-definition-overriding: true
+  rabbitmq:
+    addresses: localhost:5672
+
 
 eureka:
   client:

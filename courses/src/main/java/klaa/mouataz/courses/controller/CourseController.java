@@ -1,9 +1,9 @@
 package klaa.mouataz.courses.controller;
 
+
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
@@ -25,7 +25,7 @@ public class CourseController {
         return courseService.getCourse(id);
     }
     @PostMapping
-    public Mono<Course> addCourse(@RequestBody Course course) {
+    public Mono<Course> addCourse(@RequestBody Course course){
         return courseService.addCourse(course);
     }
     @PostMapping("/{id}")
