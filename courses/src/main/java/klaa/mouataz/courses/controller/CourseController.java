@@ -28,20 +28,6 @@ public class CourseController {
     public Mono<Course> addCourse(@RequestBody Course course){
         return courseService.addCourse(course);
     }
-    @PostMapping("/{id}")
-    public String addCourseImage(@PathVariable("id")Long id,@RequestParam("image") MultipartFile image) {
-       Mono<Course> course1=courseService.getCourse(id);
-        return course1.flatMap(course -> {
-            try {
-                course.setImageData(image.getBytes());
-                return courseService.addCourse(course)
-                        .then(Mono.just("Image added successfully"));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return Mono.just("Error uploading image");
-            }
-        }).block();
-    }
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable("courseId")Long id){
          courseService.deleteCourse(id);
