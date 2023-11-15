@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
@@ -37,6 +39,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification addNotification(Notification notification) {
+        if (Objects.equals(notification.getDescription(), "")){
+            throw new IllegalStateException("notification description empty");
+        }
         return notificationRepository.save(notification);
     }
 }
