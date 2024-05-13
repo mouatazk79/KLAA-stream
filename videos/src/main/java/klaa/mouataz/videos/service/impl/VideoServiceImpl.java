@@ -11,28 +11,29 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
+
     @Override
     public Flux<Video> getVideos() {
-        return videoRepository.findAll();
+        return null;
     }
 
     @Override
     public Mono<Video> getVideo(Long id) {
-        return videoRepository.findById(id);
+        return null;
     }
 
     @Override
     public void deleteVideo(Long id) {
-         videoRepository.deleteById(id);
+
     }
 
     @Override
     public Mono<Video> updateVideo(Video video) {
-        return videoRepository.save(video);
+        return null;
     }
 
     @Override
     public Mono<Video> addVideo(Video video) {
-        return videoRepository.save(video);
+        return null;
     }
 }
