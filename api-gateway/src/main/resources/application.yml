@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8099/realms/klaa
   banner:
     location: banner.txt
 
