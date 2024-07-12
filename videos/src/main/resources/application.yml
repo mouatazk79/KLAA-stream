@@ -1,5 +1,6 @@
 server:
   port: 8089
+
 spring:
   application:
     name: video
@@ -12,3 +13,6 @@ eureka:
 grpc:
   server:
     port: 8084
+
+
+

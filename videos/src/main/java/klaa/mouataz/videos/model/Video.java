@@ -1,5 +1,6 @@
 package klaa.mouataz.videos.model;
 
+
 import lombok.*;
 
 
@@ -10,7 +11,6 @@ import lombok.*;
 @Builder
 public class Video {
     private Long id;
-    private Long teacherId;
-    private String title;
-    private String description;
+    private byte[] data;
+
 }

@@ -6,6 +6,7 @@ import com.klaa.stream.VideoStreamingServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @GrpcService
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class VideoService extends VideoStreamingServiceGrpc.VideoStreamingServiceImplBase  {
 
