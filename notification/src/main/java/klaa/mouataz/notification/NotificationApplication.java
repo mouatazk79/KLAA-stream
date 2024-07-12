@@ -3,12 +3,7 @@ package klaa.mouataz.notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(
-        scanBasePackages = {
-                "klaa.mouataz.notification",
-                "klaa.mouataz.rbmqp"
-        }
-)
+@SpringBootApplication
 public class NotificationApplication {
     public static void main(String[] args) {
         SpringApplication.run(NotificationApplication.class,args);
