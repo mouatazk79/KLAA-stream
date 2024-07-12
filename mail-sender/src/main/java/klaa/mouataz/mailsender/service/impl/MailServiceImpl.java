@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class MailServiceImpl implements MailService {
     private final JavaMailSender mailSender;
     @Override
+    @Async
     public void sendEmail(String toEmail, String subject, String body) {
         SimpleMailMessage message=new SimpleMailMessage();
         message.setFrom("mouatazgpt79@gmail.com");
