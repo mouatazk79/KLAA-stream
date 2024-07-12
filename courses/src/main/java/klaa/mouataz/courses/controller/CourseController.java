@@ -5,11 +5,7 @@ import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,16 +13,20 @@ import java.io.IOException;
 public class CourseController {
     private final CourseService courseService;
     @GetMapping
-    public Flux<Course> getCourses(){
+    public List<Course> getCourses(){
         return courseService.getCourses();
     }
     @GetMapping("/{courseId}")
-    public Mono<Course> getCourse(@PathVariable("courseId")Long id){
+    public Course getCourse(@PathVariable("courseId")Long id){
         return courseService.getCourse(id);
     }
     @PostMapping
-    public Mono<Course> addCourse(@RequestBody Course course){
+    public Course addCourse(@RequestBody Course course){
         return courseService.addCourse(course);
+    }
+    @PatchMapping("/{id}")
+    public Course updateCourse(@PathVariable("id") Long id,@RequestBody Course course){
+        return courseService.updateCourse(id,course);
     }
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable("courseId")Long id){

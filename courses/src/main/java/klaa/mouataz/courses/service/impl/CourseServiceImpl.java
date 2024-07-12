@@ -3,47 +3,41 @@ package klaa.mouataz.courses.service.impl;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
 import klaa.mouataz.courses.service.CourseService;
-import klaa.mouataz.rbmqp.RabbitMQProducer;
-import klaa.mouataz.shared.notification.Notification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
-    private final RabbitMQProducer rabbitMQProducer;
+
+
     @Override
-    public Flux<Course> getCourses() {
+    public List<Course> getCourses() {
         return courseRepository.findAll();
     }
 
     @Override
-    public Mono<Course> getCourse(Long id) {
-        return courseRepository.findById(id);
+    public Course getCourse(Long id) {
+        return courseRepository.findCourseById(id);
     }
 
     @Override
-    public Mono<Course> updateCourse(Long id, Course course) {
-        Mono<Course> existedCourse=courseRepository.findById(id);
-
-        return null;
+    public Course updateCourse(Long id, Course course) {
+        Course existedCourse=courseRepository.findCourseById(id);
+        return courseRepository.save(existedCourse);
     }
 
     @Override
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
+
     }
 
     @Override
-    public Mono<Course> addCourse(Course course) {
-        Notification notification=Notification.builder()
-                .id(44L)
-                .subject("new course")
-                .description("new course")
-                .build();
-        rabbitMQProducer.publish(notification,"internal.exchange","internal.notification.routing-key");
+    public Course addCourse(Course course) {
         return courseRepository.save(course);
     }
 }
