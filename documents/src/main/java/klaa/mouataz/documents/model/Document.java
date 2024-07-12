@@ -15,6 +15,7 @@ public class Document {
     @Id
     private Long id;
     private String name;
+    private String Description;
     private DocumentType documentType;
     private String documentURL;
 

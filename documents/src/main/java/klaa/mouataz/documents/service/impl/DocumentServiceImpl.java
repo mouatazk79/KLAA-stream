@@ -5,26 +5,28 @@ import klaa.mouataz.documents.repos.DocumentRepository;
 import klaa.mouataz.documents.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService {
     private final DocumentRepository documentRepository;
     @Override
-    public Flux<Document> getDocuments() {
+    public List<Document> getDocuments() {
         return documentRepository.findAll();
     }
 
     @Override
-    public Mono<Document> getDocument(Long id) {
-        return documentRepository.findById(id);
+    public Document getDocument(Long id) {
+        return documentRepository.getDocumentById(id);
     }
 
     @Override
-    public Mono<Document> updateDocument(Long id, Document document) {
+    public Document updateDocument(Long id, Document document) {
 
-        return null;
+        Document existedDocument= documentRepository.getDocumentById(id);
+        return documentRepository.save(document);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Mono<Document> addDocument(Document document) {
+    public Document addDocument(Document document) {
         return documentRepository.save(document);
     }
 }

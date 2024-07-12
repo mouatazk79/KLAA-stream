@@ -4,8 +4,9 @@ import klaa.mouataz.documents.model.Document;
 import klaa.mouataz.documents.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,11 +14,23 @@ import reactor.core.publisher.Mono;
 public class DocumentController {
     private final DocumentService documentService;
     @GetMapping
-    public Flux<Document> getDocuments(){
+    public List<Document> getDocuments(){
         return documentService.getDocuments();
     }
+    @GetMapping("/{id}")
+    public Document getDocument(@PathVariable("id") Long id){
+        return documentService.getDocument(id);
+    }
+    @PatchMapping("/{id}")
+    public Document updateDocument(@PathVariable("id") Long id,@RequestBody Document document){
+        return documentService.updateDocument(id,document);
+    }
     @PostMapping
-    public Mono<Document> addDocuments(@RequestBody Document document){
+    public Document addDocuments(@RequestBody Document document){
         return documentService.addDocument(document);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteDocuments(@PathVariable("id") Long id){
+        documentService.deleteDocument(id);
     }
 }
