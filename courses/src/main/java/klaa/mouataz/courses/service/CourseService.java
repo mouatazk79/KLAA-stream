@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface CourseService {
     List<Course> getCourses();
-    Course getCourse(Long id);
-    Course updateCourse(Long id,Course course);
-    void deleteCourse(Long id);
+    Course getCourse(String id);
+    Course updateCourse(String id,Course course);
+    void deleteCourse(String id);
     Course addCourse(Course course);
 }
