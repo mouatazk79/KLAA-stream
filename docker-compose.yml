@@ -73,11 +73,14 @@ services:
       - "start-dev"
 
 
+
+
 networks:
   postgres:
     driver: bridge
   klaa:
     driver: bridge
+
 volumes:
   postgres:
   pgadmin:
