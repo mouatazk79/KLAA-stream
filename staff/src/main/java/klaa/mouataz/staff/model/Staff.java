@@ -16,6 +16,14 @@ public class Staff {
     private Long id;
     private String firstName;
     private String lastName;
+    @Transient
+    private String fullName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+
 }
