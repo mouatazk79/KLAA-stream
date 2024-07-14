@@ -13,9 +13,13 @@ import java.util.List;
 @RequestMapping("/api/v1/documents")
 public class DocumentController {
     private final DocumentService documentService;
+//    @GetMapping
+//    public List<Document> getDocuments(){
+//        return documentService.getDocuments();
+//    }
     @GetMapping
-    public List<Document> getDocuments(){
-        return documentService.getDocuments();
+    public List<Document> getAllVisibleDocuments(){
+        return documentService.getVisibleDocuments();
     }
     @GetMapping("/{id}")
     public Document getDocument(@PathVariable("id") String id){

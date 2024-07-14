@@ -21,6 +21,7 @@ public class Document {
     private String Description;
     private DocumentType documentType;
     private String documentURL;
+    private boolean visible;
 
 
 }

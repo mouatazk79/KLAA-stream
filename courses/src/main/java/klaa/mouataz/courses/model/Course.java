@@ -22,5 +22,6 @@ public class Course {
     private String field;
     private String description;
     private String courseURL;
+    private boolean visible;
 
 }

@@ -12,9 +12,17 @@ import java.util.List;
 @RequestMapping("/api/v1/courses")
 public class CourseController {
     private final CourseService courseService;
+//    @GetMapping
+//    public List<Course> getCourses(){
+//        return courseService.getCourses();
+//    }
+    @GetMapping("/teacher/{teacherId}")
+    public List<Course> getTeacherCourses(@PathVariable("teacherId")Long id){
+        return courseService.findTeacherCourses(id);
+    }
     @GetMapping
-    public List<Course> getCourses(){
-        return courseService.getCourses();
+    public List<Course> getVisibleCourses(){
+        return courseService.findAllVisibleCourses();
     }
     @GetMapping("/{courseId}")
     public Course getCourse(@PathVariable("courseId")String id){

@@ -1,12 +1,63 @@
 package klaa.mouataz.courses.service;
 
 import klaa.mouataz.courses.model.Course;
+import klaa.mouataz.courses.repos.CourseRepository;
+import klaa.mouataz.shared.CoursePayload;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface CourseService {
-    List<Course> getCourses();
-    Course getCourse(String id);
-    Course updateCourse(String id,Course course);
-    void deleteCourse(String id);
-    Course addCourse(Course course);
+@Service
+@RequiredArgsConstructor
+public class CourseService {
+    private final CourseRepository courseRepository;
+    private final KafkaTemplate<String,Object> kafkaTemplate;
+    private final NewTopic topic;
+
+
+
+    public List<Course> getCourses() {
+        return courseRepository.findAll();
+    }
+
+    public List<Course> findTeacherCourses(Long id) {
+
+        return courseRepository.findCoursesByTeacherId(id);
+    }
+
+   public  List<Course> findAllVisibleCourses(){
+        return courseRepository.findCoursesByVisibleIsTrue();
+    }
+
+
+    public Course getCourse(String id) {
+        return courseRepository.findCourseById(id);
+    }
+
+
+    public Course updateCourse(String id, Course course) {
+        Course existedCourse=courseRepository.findCourseById(id);
+        return courseRepository.save(existedCourse);
+    }
+
+
+    public void deleteCourse(String id) {
+        courseRepository.deleteById(id);
+
+    }
+
+
+    public Course addCourse(Course course) {
+
+        CoursePayload coursePayload=CoursePayload.builder()
+                        .name(course.getName())
+                                .teacherId(course.getTeacherId())
+                                        .courseURL(course.getCourseURL()).build();
+
+        kafkaTemplate.send(topic.name(),coursePayload);
+        return courseRepository.save(course);
+    }
 }
