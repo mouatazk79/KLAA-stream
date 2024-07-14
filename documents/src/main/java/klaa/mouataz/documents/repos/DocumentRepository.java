@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentRepository extends MongoRepository<Document,Long> {
+public interface DocumentRepository extends MongoRepository<Document,String> {
 
-    Document getDocumentById(Long id);
+    Document getDocumentById(String id);
 }

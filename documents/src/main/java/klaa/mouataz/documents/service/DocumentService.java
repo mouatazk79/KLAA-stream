@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface DocumentService {
     List<Document> getDocuments();
-    Document getDocument(Long id);
-    Document updateDocument(Long id,Document document);
-    void deleteDocument(Long id);
+    Document getDocument(String id);
+    Document updateDocument(String id,Document document);
+    void deleteDocument(String id);
     Document addDocument(Document document);
 
 }

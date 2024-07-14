@@ -18,11 +18,11 @@ public class DocumentController {
         return documentService.getDocuments();
     }
     @GetMapping("/{id}")
-    public Document getDocument(@PathVariable("id") Long id){
+    public Document getDocument(@PathVariable("id") String id){
         return documentService.getDocument(id);
     }
     @PatchMapping("/{id}")
-    public Document updateDocument(@PathVariable("id") Long id,@RequestBody Document document){
+    public Document updateDocument(@PathVariable("id") String id,@RequestBody Document document){
         return documentService.updateDocument(id,document);
     }
     @PostMapping
@@ -30,7 +30,7 @@ public class DocumentController {
         return documentService.addDocument(document);
     }
     @DeleteMapping("/{id}")
-    public void deleteDocuments(@PathVariable("id") Long id){
+    public void deleteDocuments(@PathVariable("id") String id){
         documentService.deleteDocument(id);
     }
 }
