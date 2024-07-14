@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -16,7 +17,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Notification {
 
     @Id
-    private Long id;
+    @Indexed(unique=true)
+    private String id;
     private String subject;
     private String description;
 }

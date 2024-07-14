@@ -17,11 +17,11 @@ public class NotificationController {
         return notificationService.getNotifications();
     }
     @GetMapping("/{notificationId}")
-    public Notification getNotification(@PathVariable("notificationId") Long id){
+    public Notification getNotification(@PathVariable("notificationId") String id){
         return notificationService.getNotification(id);
     }
     @PutMapping("/{notificationId}")
-    public Notification updateNotification(@PathVariable("notificationId")Long id,@RequestBody Notification notification){
+    public Notification updateNotification(@PathVariable("notificationId")String id,@RequestBody Notification notification){
         return notificationService.updateNotification(id,notification);
     }
     @PostMapping
@@ -29,7 +29,7 @@ public class NotificationController {
         return    notificationService.addNotification(notification);
     }
     @DeleteMapping("{notificationId}")
-    public void deleteNotification(@PathVariable("notificationId")Long id){
+    public void deleteNotification(@PathVariable("notificationId")String id){
         notificationService.deleteNotification(id);
     }
 

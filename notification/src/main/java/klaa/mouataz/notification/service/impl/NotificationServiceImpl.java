@@ -19,18 +19,18 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Notification getNotification(Long id) {
+    public Notification getNotification(String id) {
 
         return notificationRepository.findNotificationById(id);
     }
 
     @Override
-    public void deleteNotification(Long id) {
+    public void deleteNotification(String id) {
         notificationRepository.deleteById(id);
     }
 
     @Override
-    public Notification updateNotification(Long id, Notification notification) {
+    public Notification updateNotification(String id, Notification notification) {
         Notification existedNotification=notificationRepository.findNotificationById(id);
         existedNotification.setSubject(notification.getSubject());
         existedNotification.setDescription(notification.getDescription());
@@ -39,9 +39,6 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Notification addNotification(Notification notification) {
-        if (Objects.equals(notification.getDescription(), "")){
-            throw new IllegalStateException("notification description empty");
-        }
         return notificationRepository.save(notification);
     }
 }
