@@ -1,16 +1,15 @@
 package klaa.mouataz.notification.handler;
 
-import klaa.mouataz.shared.notification.Course;
+import klaa.mouataz.shared.CoursePayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
 @KafkaListener(
         id = "notificationID",
-        groupId = "notification",
+        groupId = "notification.group.id",
         topics = "notification",
         containerFactory = "concurrentKafkaListenerContainerFactory"
 )
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class NotificationHandler {
 
     @KafkaHandler
-    public void handleNotification(@Payload Course course){
-        log.info("course notification handled: "+course);
+    public void handleNotification(CoursePayload payload){
+        log.info("course notification handled: "+payload);
     }
 }

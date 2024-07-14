@@ -3,6 +3,7 @@ package klaa.mouataz.courses.service.impl;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
 import klaa.mouataz.courses.service.CourseService;
+import klaa.mouataz.shared.CoursePayload;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -43,7 +44,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course addCourse(Course course) {
 
-        kafkaTemplate.send(topic.name(),course);
+        CoursePayload coursePayload=CoursePayload.builder()
+                        .name(course.getName())
+                                .teacherId(course.getTeacherId())
+                                        .courseURL(course.getCourseURL()).build();
+
+        kafkaTemplate.send(topic.name(),coursePayload);
         return courseRepository.save(course);
     }
 }

@@ -19,7 +19,7 @@ import java.util.Map;
 public class KafkaConfiguration {
     @Bean
     public NewTopic createTopic(){
-        return TopicBuilder.name("notifications").build();
+        return TopicBuilder.name("notification").build();
     }
     @Bean
     public ProducerFactory<String,Object> producerFactory(@Value("${spring.kafka.bootstrap-servers}") String server){

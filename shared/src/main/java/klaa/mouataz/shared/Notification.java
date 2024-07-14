@@ -1,4 +1,4 @@
-package klaa.mouataz.shared.notification;
+package klaa.mouataz.shared;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

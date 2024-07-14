@@ -1,6 +1,5 @@
 package klaa.mouataz.notification.configuration;
 
-import klaa.mouataz.notification.model.Notification;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
