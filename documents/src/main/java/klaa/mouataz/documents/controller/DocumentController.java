@@ -2,6 +2,7 @@ package klaa.mouataz.documents.controller;
 
 import klaa.mouataz.documents.model.Document;
 import klaa.mouataz.documents.service.DocumentService;
+import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,11 @@ public class DocumentController {
 //        return documentService.getDocuments();
 //    }
     @GetMapping
-    public List<Document> getAllVisibleDocuments(){
-        return documentService.getVisibleDocuments();
+    public PageResponse<Document> getAllVisibleDocuments(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ){
+        return documentService.getVisibleDocuments(page, size);
     }
     @GetMapping("/{id}")
     public Document getDocument(@PathVariable("id") String id){

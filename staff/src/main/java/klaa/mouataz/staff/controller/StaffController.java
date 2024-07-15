@@ -1,5 +1,6 @@
 package klaa.mouataz.staff.controller;
 
+import klaa.mouataz.shared.page.PageResponse;
 import klaa.mouataz.staff.model.Staff;
 import klaa.mouataz.staff.service.StaffService;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,9 @@ import java.util.List;
 public class StaffController {
     private final StaffService staffService;
     @GetMapping
-    public List<Staff> getAllStaffs(){
-        return staffService.getAllStaffs();
+    public PageResponse<Staff> getAllStaffs(@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                            @RequestParam(name = "size", defaultValue = "10", required = false) int size){
+        return staffService.getAllStaffs(page, size);
     }
     @GetMapping("/{staffId}")
     public Staff getStaffById(@PathVariable("staffId") Long id){

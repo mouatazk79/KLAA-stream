@@ -3,8 +3,12 @@ package klaa.mouataz.documents.service;
 import klaa.mouataz.documents.model.Document;
 import klaa.mouataz.documents.repos.DocumentRepository;
 import klaa.mouataz.shared.DocumentPayload;
+import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +23,19 @@ public class DocumentService {
     public List<Document> getDocuments() {
         return documentRepository.findAll();
     }
-    public List<Document> getVisibleDocuments() {
 
-        return documentRepository.findDocumentsByVisibleIsTrue();
+    public PageResponse<Document> getVisibleDocuments(int page, int size) {
+
+        Pageable pageable= PageRequest.of(page, size);
+        Page<Document> documents =documentRepository.findDocumentsByVisibleIsTrue(pageable);
+        List<Document> listDocuments=documents.toList();
+        return new PageResponse<>(
+                listDocuments,
+                documents.getNumber(),
+                documents.getSize(),
+                documents.isFirst(),
+                documents.isLast()
+        );
     }
 
     public Document getDocument(String id) {

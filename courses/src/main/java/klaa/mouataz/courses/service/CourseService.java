@@ -3,10 +3,16 @@ package klaa.mouataz.courses.service;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
 import klaa.mouataz.shared.CoursePayload;
+import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,8 +34,19 @@ public class CourseService {
         return courseRepository.findCoursesByTeacherId(id);
     }
 
-   public  List<Course> findAllVisibleCourses(){
-        return courseRepository.findCoursesByVisibleIsTrue();
+   public PageResponse<Course> findAllVisibleCourses(int page,int size){
+
+       Pageable pageable= PageRequest.of(page,size);
+
+       Page<Course> courses=courseRepository.findCoursesByVisibleIsTrue(pageable);
+       List<Course> coursesList=courses.toList();
+       return new PageResponse<>(
+               coursesList,
+               courses.getNumber(),
+               courses.getSize(),
+               courses.isFirst(),
+               courses.isLast()
+       );
     }
 
 
@@ -59,5 +76,11 @@ public class CourseService {
 
         kafkaTemplate.send(topic.name(),coursePayload);
         return courseRepository.save(course);
+    }
+
+    @Transactional
+    public void uploadCourseCoverPicture(String courseID, MultipartFile file) {
+        Course course=courseRepository.findCourseById(courseID);
+
     }
 }

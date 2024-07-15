@@ -3,8 +3,12 @@ package klaa.mouataz.courses.controller;
 
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
+import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -21,8 +25,9 @@ public class CourseController {
         return courseService.findTeacherCourses(id);
     }
     @GetMapping
-    public List<Course> getVisibleCourses(){
-        return courseService.findAllVisibleCourses();
+    public PageResponse<Course> getVisibleCourses( @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size){
+        return courseService.findAllVisibleCourses(page,size);
     }
     @GetMapping("/{courseId}")
     public Course getCourse(@PathVariable("courseId")String id){
@@ -39,5 +44,11 @@ public class CourseController {
     @DeleteMapping("/{courseId}")
     public void deleteCourse(@PathVariable("courseId")String id){
          courseService.deleteCourse(id);
+    }
+    @PostMapping(value = "/upload-cover/{courseId}",consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBookCover(@PathVariable("courseId")String courseID, @RequestPart("file")MultipartFile file){
+
+        courseService.uploadCourseCoverPicture(courseID,file);
+        return ResponseEntity.accepted().build();
     }
 }
