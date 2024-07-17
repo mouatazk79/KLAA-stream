@@ -1,6 +1,7 @@
 package klaa.mouataz.notification.model;
 
 
+import klaa.mouataz.shared.auditing.MongoAudit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Notification {
+public class Notification extends MongoAudit {
 
     @Id
     @Indexed(unique=true)

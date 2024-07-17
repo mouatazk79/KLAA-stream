@@ -1,6 +1,7 @@
 package klaa.mouataz.documents.model;
 
 import klaa.mouataz.documents.enums.DocumentType;
+import klaa.mouataz.shared.auditing.MongoAudit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Document {
+public class Document extends MongoAudit {
     @Id
     @Indexed(unique=true)
     private String id;

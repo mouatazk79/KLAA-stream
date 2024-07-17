@@ -10,7 +10,6 @@ spring:
           issuer-uri: http://localhost:8099/realms/klaa
   banner:
     location: banner.txt
-
   cloud:
     gateway:
       routes:
@@ -40,10 +39,6 @@ spring:
             - Path= /api/v1/documents/**
     compatibility-verifier:
       enabled: false
-
-
-
-
 eureka:
   client:
     service-url:
