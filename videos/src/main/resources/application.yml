@@ -1,11 +1,17 @@
 server:
   port: 8089
+  error:
+    include-message: always
 
 spring:
   application:
     name: video
   banner:
     location: banner.txt
+  servlet:
+    multipart:
+      max-file-size: 2100MB
+      max-request-size: 2100MB
 eureka:
   client:
     service-url:

@@ -1,16 +1,13 @@
 package klaa.mouataz.videos.model;
 
 
-import lombok.*;
+
+import java.nio.ByteBuffer;
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
-public class Video {
-    private Long id;
-    private byte[] data;
+
+public record Video ( Integer size,
+         ByteBuffer videoByteBuffer){
+
 
 }
