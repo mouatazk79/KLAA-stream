@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @AllArgsConstructor
@@ -21,16 +22,13 @@ public class Staff {
     private String lastName;
     private LocalDate dateOfBirth;
     private String phoneNumber;
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
-//    @Transient
-//    private int age;
-//
-//    public LocalDate getDateOfBirth() {
-//        return LocalDate.;
-//    }
-
+    @Transient
+    private int age;
+    public int getAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
     @Transient
     private String fullName;
     public String getFullName() {
