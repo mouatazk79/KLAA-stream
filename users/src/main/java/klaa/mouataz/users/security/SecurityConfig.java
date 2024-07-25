@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req->
-                        req.requestMatchers("/api/v1/auth/**").permitAll()
+                        req.requestMatchers("/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -39,4 +39,5 @@ public class SecurityConfig {
 
 
     }
+
 }

@@ -3,7 +3,6 @@ package klaa.mouataz.videos.controller;
 import klaa.mouataz.videos.model.Video;
 import klaa.mouataz.videos.repos.ByteBufferBackedInputStream;
 import klaa.mouataz.videos.repos.VideoRepository;
-import klaa.mouataz.videos.service.ReactiveVideoStreamingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.*;
 
@@ -21,14 +20,12 @@ import java.nio.ByteBuffer;
 @RequiredArgsConstructor
 public class VideoController {
 
-    private final ReactiveVideoStreamingService reactiveVideoStreamingService;
-    private final ResourceLoader resourceLoader;
 
     private final VideoRepository storage;
 
     @SuppressWarnings("java:S1215")
     @PostMapping()
-    String saveMovie(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) throws IOException, IOException {
+    String saveMovie(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) throws  IOException {
         storage.put(name, file);
       //  log.info(Information.getMemoryInformation(storage.getTotalNoHeapMemoryUsage()));
         return "Video saved successfully.";
