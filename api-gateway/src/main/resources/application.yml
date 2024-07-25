@@ -1,13 +1,11 @@
 server:
   port: 8090
+  error:
+    include-message: always
 spring:
   application:
     name: api-gateway
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8099/realms/klaa
+
   banner:
     location: banner.txt
   cloud:
@@ -29,6 +27,7 @@ spring:
           uri: lb://USER
           predicates:
             - Path= /api/v1/users/**
+            - Path= /api/v1/auth/**
         - id: video
           uri: lb://VIDEO
           predicates:
@@ -37,8 +36,15 @@ spring:
           uri: lb://DOCUMENTS
           predicates:
             - Path= /api/v1/documents/**
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
     compatibility-verifier:
       enabled: false
+
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:
