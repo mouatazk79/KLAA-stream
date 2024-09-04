@@ -2,10 +2,10 @@ package klaa.mouataz.notification.controller;
 
 import klaa.mouataz.notification.model.Notification;
 import klaa.mouataz.notification.service.NotificationService;
+import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,8 +13,11 @@ import java.util.List;
 public class NotificationController {
     private final NotificationService notificationService;
     @GetMapping
-    public List<Notification> getNotifications(){
-        return notificationService.getNotifications();
+    public PageResponse<Notification> getAllVisibleDocuments(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ){
+        return notificationService.getNotifications(page, size);
     }
     @GetMapping("/{notificationId}")
     public Notification getNotification(@PathVariable("notificationId") String id){
