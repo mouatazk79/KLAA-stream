@@ -45,6 +45,7 @@ spring:
           uri: lb://VIDEO
           predicates:
             - Path= /api/v1/videos/**
+            - Path= /api/v1/videoinfos/**
         - id: documents
           uri: lb://DOCUMENTS
           predicates:
