@@ -4,7 +4,6 @@ import klaa.mouataz.shared.auditing.MongoAudit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,7 +22,7 @@ public class Course extends MongoAudit implements Serializable {
     private String name;
     private String field;
     private String description;
-    private String courseURL;
+    private String imageURL;
     private boolean visible;
 
 

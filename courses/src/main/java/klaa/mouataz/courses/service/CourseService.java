@@ -2,6 +2,7 @@ package klaa.mouataz.courses.service;
 
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
+import klaa.mouataz.courses.util.FileStorageService;
 import klaa.mouataz.shared.CoursePayload;
 import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final KafkaTemplate<String,Object> kafkaTemplate;
     private final NewTopic topic;
+    private final FileStorageService fileStorageService;
 
 
 
@@ -72,15 +75,18 @@ public class CourseService {
         CoursePayload coursePayload=CoursePayload.builder()
                         .name(course.getName())
                                 .teacherId(course.getTeacherId())
-                                        .courseURL(course.getCourseURL()).build();
+                                        .courseURL(course.getImageURL()).build();
 
         kafkaTemplate.send(topic.name(),coursePayload);
         return courseRepository.save(course);
     }
 
     @Transactional
-    public void uploadCourseCoverPicture(String courseID, MultipartFile file) {
+    public void uploadCourseCoverPicture(String courseID, MultipartFile file) throws IOException {
         Course course=courseRepository.findCourseById(courseID);
+        var bookCover=fileStorageService.saveFile(file,course);
+        course.setImageURL(bookCover);
+        courseRepository.save(course);
 
     }
 }
