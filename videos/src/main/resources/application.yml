@@ -8,6 +8,14 @@ spring:
     name: video
   banner:
     location: banner.txt
+  data:
+    mongodb:
+      password: password
+      username: root
+      database: videoinfo
+      port: 27017
+      host: localhost
+      authentication-database: admin
   servlet:
     multipart:
       max-file-size: 2100MB
