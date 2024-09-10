@@ -20,7 +20,7 @@ public class Document extends MongoAudit {
     private String id;
 
     private String name;
-    private String Description;
+    private String description;
     private DocumentType documentType;
     private String documentURL;
     private boolean visible;

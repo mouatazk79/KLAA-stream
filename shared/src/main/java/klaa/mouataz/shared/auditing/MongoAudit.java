@@ -1,6 +1,5 @@
 package klaa.mouataz.shared.auditing;
 
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 

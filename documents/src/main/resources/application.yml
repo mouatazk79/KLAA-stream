@@ -13,6 +13,7 @@ spring:
       port: 27017
       host: localhost
       authentication-database: admin
+
   main:
     allow-bean-definition-overriding: true
   kafka:

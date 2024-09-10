@@ -3,7 +3,7 @@ package klaa.mouataz.users.controller;
 import jakarta.validation.Valid;
 import klaa.mouataz.users.payload.AuthenticationRequest;
 import klaa.mouataz.users.payload.AuthenticationResponse;
-import klaa.mouataz.users.payload.RegisterRequest;
+import klaa.mouataz.shared.user.RegisterRequest;
 import klaa.mouataz.users.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

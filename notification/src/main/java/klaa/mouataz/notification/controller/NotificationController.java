@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
     private final NotificationService notificationService;
     @GetMapping
-    public PageResponse<Notification> getAllVisibleDocuments(
+    public PageResponse<Notification> getAllVisibleNotifications(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ){

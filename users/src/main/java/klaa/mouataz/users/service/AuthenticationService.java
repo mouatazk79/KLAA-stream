@@ -1,13 +1,11 @@
 package klaa.mouataz.users.service;
 
 import klaa.mouataz.users.enumerations.Role;
-import klaa.mouataz.users.model.Token;
 import klaa.mouataz.users.model.User;
 import klaa.mouataz.users.payload.AuthenticationRequest;
 import klaa.mouataz.users.payload.AuthenticationResponse;
-import klaa.mouataz.users.payload.RegisterRequest;
+import klaa.mouataz.shared.user.RegisterRequest;
 import klaa.mouataz.users.repos.RoleRepository;
-import klaa.mouataz.users.repos.TokenRepository;
 import klaa.mouataz.users.repos.UserRepository;
 import klaa.mouataz.users.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,6 @@ public class AuthenticationService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final TokenRepository tokenRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
@@ -38,13 +35,12 @@ public class AuthenticationService {
                 .username(registerRequest.userName())
                 .email(registerRequest.email())
                 .password(passwordEncoder.encode(registerRequest.password()))
-                .accountLocked(false)
-                .enabled(true)
+                .accountLocked(true)
+                .enabled(false)
                 .roles(List.of(userRole))
                 .build();
+        System.out.println(user);
         userRepository.save(user);
-
-
     }
 
 
