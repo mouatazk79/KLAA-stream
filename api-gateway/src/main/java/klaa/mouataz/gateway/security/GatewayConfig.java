@@ -35,9 +35,15 @@ public class GatewayConfig {
                 .route("video", r -> r.path("/api/v1/videos/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://VIDEO"))
+                .route("video", r -> r.path("/api/v1/videoinfos/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://VIDEO"))
                 .route("documents", r -> r.path("/api/v1/documents/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://DOCUMENTS"))
+                .route("aggregator", r -> r.path("/api/v1/aggregator/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://AGGREGATOR"))
                 .build();
     }
 

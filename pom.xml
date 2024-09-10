@@ -16,6 +16,7 @@
         <module>shared</module>
         <module>smsservice</module>
         <module>proto</module>
+        <module>aggregator</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

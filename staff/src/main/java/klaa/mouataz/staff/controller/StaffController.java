@@ -1,12 +1,14 @@
 package klaa.mouataz.staff.controller;
 
 import klaa.mouataz.shared.page.PageResponse;
+import klaa.mouataz.shared.staff.StaffDto;
 import klaa.mouataz.staff.model.Staff;
 import klaa.mouataz.staff.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +29,13 @@ public class StaffController {
         staffService.deleteStaffById(id);
     }
     @PatchMapping("/{staffId}")
-    public Staff updateStaffById(@PathVariable("staffId") Long id,@RequestBody Staff newStaff) {
+    public Staff updateStaffById(@PathVariable("staffId") Long id, @RequestBody Staff newStaff) {
         return staffService.updateStaffById(id,newStaff);
     }
+    @PostMapping
+    public void addStaff(@RequestBody StaffDto newStaff) {
+         staffService.addStaff(newStaff);
+    }
+
 
     }

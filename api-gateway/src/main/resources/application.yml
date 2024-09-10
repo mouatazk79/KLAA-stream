@@ -50,6 +50,10 @@ spring:
           uri: lb://DOCUMENTS
           predicates:
             - Path= /api/v1/documents/**
+        - id: aggregator
+          uri: lb://AGGREGATOR
+          predicates:
+            - Path= /api/v1/aggregator/**
       discovery:
         locator:
           enabled: true
