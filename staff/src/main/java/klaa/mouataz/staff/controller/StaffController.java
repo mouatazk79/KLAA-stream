@@ -24,6 +24,10 @@ public class StaffController {
     public Staff getStaffById(@PathVariable("staffId") Long id){
         return staffService.getStaffById(id);
     }
+    @GetMapping("/username/{staffUserName}")
+    public StaffDto getStaffByUserName(@PathVariable("staffUserName") String userName){
+        return staffService.getStaffByUserName(userName);
+    }
     @DeleteMapping("/{staffId}")
     public void deleteStaffById(@PathVariable("staffId") Long id){
         staffService.deleteStaffById(id);

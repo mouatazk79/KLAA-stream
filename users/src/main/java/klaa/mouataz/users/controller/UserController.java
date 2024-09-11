@@ -1,11 +1,15 @@
 package klaa.mouataz.users.controller;
 
+import klaa.mouataz.shared.DemandDto;
 import klaa.mouataz.shared.page.PageResponse;
+import klaa.mouataz.shared.user.UserDto;
 import klaa.mouataz.users.model.User;
 import klaa.mouataz.users.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +25,11 @@ public PageResponse<User> getAllUsers(
 ){
     return userService.getUsers(page, size);
 }
+    @GetMapping("/locked")
+    public ResponseEntity<List<DemandDto> > getAllLockedUsers(){
+        List<DemandDto>  lockedUsers=userService.getLockedUsers();
+        return ResponseEntity.ok(lockedUsers);
+    }
     @GetMapping("/{userId}")
     public User getUser(@PathVariable("userId")UUID id){
         return userService.getUser(id);

@@ -16,11 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CourseService {
+    private static final String UPLOAD_DIRECTORY = "Z:/springprojects/KLAAschool/images";
+
     private final CourseRepository courseRepository;
     private final KafkaTemplate<String,Object> kafkaTemplate;
     private final NewTopic topic;
@@ -84,8 +89,12 @@ public class CourseService {
     @Transactional
     public void uploadCourseCoverPicture(String courseID, MultipartFile file) throws IOException {
         Course course=courseRepository.findCourseById(courseID);
-        var bookCover=fileStorageService.saveFile(file,course);
-        course.setImageURL(bookCover);
+        String fileName = file.getOriginalFilename();
+        Path filePath = Paths.get(UPLOAD_DIRECTORY, fileName);
+        Files.createDirectories(filePath.getParent());
+        file.transferTo(filePath.toFile());
+        String imageUrl = "/images/" + fileName;
+        course.setImageURL(imageUrl);
         courseRepository.save(course);
 
     }

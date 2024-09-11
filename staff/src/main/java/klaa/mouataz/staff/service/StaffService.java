@@ -47,6 +47,19 @@ public class StaffService {
 
         );
     }
+    public StaffDto getStaffByUserName(String userName){
+        Staff staff=staffRepository.findStaffByUserName(userName).orElseThrow();
+        StaffDto staffDto=StaffDto.builder()
+                .firstName(staff.getFirstName())
+                .lastName(staff.getLastName())
+                .gender(staff.getGender().toString())
+                .dateOfBirth(staff.getDateOfBirth())
+                .phoneNumber(staff.getPhoneNumber())
+                .build();
+        return  staffDto;
+
+
+    }
 
     public void deleteStaffById(Long id) {
         staffRepository.deleteById(id);

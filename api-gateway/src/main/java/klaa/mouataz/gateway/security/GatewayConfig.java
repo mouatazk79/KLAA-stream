@@ -6,7 +6,6 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RefreshScope
 @Configuration
@@ -25,12 +24,12 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("lb://NOTIFICATION"))
                 .route("courses", r -> r.path("/api/v1/courses/**")
-                        .filters(f -> f.filter(filter))
+                 //       .filters(f -> f.filter(filter))
                         .uri("lb://COURSES"))
                 .route("user", r -> r.path("/api/v1/auth/**")
                         .uri("lb://USER"))
                 .route("user", r -> r.path("/api/v1/users/**")
-                        .filters(f -> f.filter(filter))
+                    //    .filters(f -> f.filter(filter))
                         .uri("lb://USER"))
                 .route("video", r -> r.path("/api/v1/videos/**")
                         .filters(f -> f.filter(filter))
@@ -42,7 +41,6 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("lb://DOCUMENTS"))
                 .route("aggregator", r -> r.path("/api/v1/aggregator/**")
-                        .filters(f -> f.filter(filter))
                         .uri("lb://AGGREGATOR"))
                 .build();
     }

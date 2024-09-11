@@ -5,6 +5,10 @@ import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
 import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/courses")
 public class CourseController {
+    private final ResourceLoader resourceLoader;
     private final CourseService courseService;
 //    @GetMapping
 //    public List<Course> getCourses(){
@@ -47,10 +52,22 @@ public class CourseController {
          courseService.deleteCourse(id);
     }
     @PostMapping(value = "/upload-cover/{courseId}",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadBookCover(@PathVariable("courseId")String courseID, @RequestPart("file")MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadCourseCover(@PathVariable("courseId")String courseID, @RequestPart("file")MultipartFile file) throws IOException {
 
         courseService.uploadCourseCoverPicture(courseID,file);
         return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/image/{filename:.+}")
+    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+        Resource resource = resourceLoader.getResource("Z:/springprojects/KLAAschool" + filename);
+        if (resource.exists()) {
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .body(resource);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
 }

@@ -29,7 +29,7 @@ public class AuthenticationService {
 
     @Transactional
     public void register(RegisterRequest registerRequest) {
-        Role userRole=roleRepository.findByName(registerRequest.role())
+        Role userRole=roleRepository.findByName("USER")
                 .orElseThrow();
         var user= User.builder()
                 .username(registerRequest.userName())
