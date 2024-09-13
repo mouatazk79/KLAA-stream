@@ -1,6 +1,7 @@
 package klaa.mouataz.courses.controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.service.CourseService;
 import klaa.mouataz.shared.page.PageResponse;
@@ -10,10 +11,15 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -58,16 +64,37 @@ public class CourseController {
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/image/{filename:.+}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-        Resource resource = resourceLoader.getResource("Z:/springprojects/KLAAschool" + filename);
-        if (resource.exists()) {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .body(resource);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @GetMapping("/image/**")
+    public ResponseEntity<Resource> getImage(HttpServletRequest request) {
+        // Retrieve the relative path from the request
+        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        String bestMatchPattern = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+
+        // Remove the pattern from the path to get the relative path
+        String relativePath = path.replaceFirst(bestMatchPattern.replace("/**", ""), "");
+
+        try {
+            // Load the resource using the relative path
+            Resource resource = resourceLoader.getResource("classpath:" + relativePath);
+
+            if (resource.exists() && resource.isReadable()) {
+                // Determine the content type dynamically
+                String contentType = Files.probeContentType(Paths.get(resource.getURI()));
+
+                // Fallback to a default content type if unknown
+                if (contentType == null) {
+                    contentType = MimeTypeUtils.APPLICATION_OCTET_STREAM_VALUE;
+                }
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, contentType)
+                        .body(resource);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (IOException e) {
+            // Handle IO exceptions (e.g., file not found, reading error)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
