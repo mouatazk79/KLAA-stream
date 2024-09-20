@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CourseService {
-    private static final String UPLOAD_DIRECTORY = "Z:/springprojects/KLAAschool/images";
+    private static final String UPLOAD_DIRECTORY = "Z:/springprojects/KLAAschool/courses/src/main/resources/images";
 
     private final CourseRepository courseRepository;
     private final KafkaTemplate<String,Object> kafkaTemplate;
@@ -79,8 +79,7 @@ public class CourseService {
 
         CoursePayload coursePayload=CoursePayload.builder()
                         .name(course.getName())
-                                .teacherId(course.getTeacherId())
-                                        .courseURL(course.getImageURL()).build();
+                                .build();
 
         kafkaTemplate.send(topic.name(),coursePayload);
         return courseRepository.save(course);
@@ -88,14 +87,15 @@ public class CourseService {
 
     @Transactional
     public void uploadCourseCoverPicture(String courseID, MultipartFile file) throws IOException {
-        Course course=courseRepository.findCourseById(courseID);
+        Course course=courseRepository.findCourseByName(courseID);
+        String time= String.valueOf(System.currentTimeMillis());
         String fileName = file.getOriginalFilename();
+        fileName=time+fileName;
         Path filePath = Paths.get(UPLOAD_DIRECTORY, fileName);
         Files.createDirectories(filePath.getParent());
         file.transferTo(filePath.toFile());
-        String imageUrl = "/images/" + fileName;
+        String imageUrl = "/images/"+fileName;
         course.setImageURL(imageUrl);
         courseRepository.save(course);
-
     }
 }

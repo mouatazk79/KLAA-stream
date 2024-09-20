@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends MongoRepository<Course,String> {
     Course findCourseById(String id);
+    Course findCourseByName(String name);
     List<Course> findCoursesByTeacherId(Long id);
     Page<Course> findCoursesByVisibleIsTrue(Pageable pageable);
 

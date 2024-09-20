@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -21,6 +20,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class CourseController {
     }
     @GetMapping
     public PageResponse<Course> getVisibleCourses( @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-                                                   @RequestParam(name = "size", defaultValue = "10", required = false) int size){
+                                                   @RequestParam(name = "size", defaultValue = "100", required = false) int size){
         return courseService.findAllVisibleCourses(page,size);
     }
     @GetMapping("/{courseId}")
@@ -57,9 +58,10 @@ public class CourseController {
     public void deleteCourse(@PathVariable("courseId")String id){
          courseService.deleteCourse(id);
     }
-    @PostMapping(value = "/upload-cover/{courseId}",consumes = "multipart/form-data")
+    @PostMapping(value = "/upload-cover/{courseId}",consumes =MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadCourseCover(@PathVariable("courseId")String courseID, @RequestPart("file")MultipartFile file) throws IOException {
 
+        System.out.println(file);
         courseService.uploadCourseCoverPicture(courseID,file);
         return ResponseEntity.accepted().build();
     }
