@@ -15,8 +15,7 @@ public class RegisterAggregatorController {
     @PostMapping("signup")
     public ResponseEntity<?> register(@RequestBody RegistrationRequest register){
         // TODO: 9/10/2024 note database and add it to the request
-        System.out.println("controller");
-        registerService.register(register);
-        return ResponseEntity.ok("user created");
+        return ResponseEntity.ok(registerService.register(register));
+
     }
 }

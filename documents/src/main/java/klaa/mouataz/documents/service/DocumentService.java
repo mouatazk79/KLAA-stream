@@ -41,14 +41,15 @@ public class DocumentService {
     public Document getDocument(String id) {
         return documentRepository.getDocumentById(id);
     }
+    public Document updateDocument(Document document) {
+        Document existedDocument= documentRepository.getDocumentById(document.getId());
+        existedDocument.setName(document.getName());
+        existedDocument.setDocumentType(document.getDocumentType());
+        existedDocument.setDocumentURL(document.getDocumentURL());
 
-
-    public Document updateDocument(String id, Document document) {
-
-       // Document existedDocument= documentRepository.getDocumentById(id);
-        return documentRepository.save(document);
+        System.out.println(existedDocument);
+        return documentRepository.save(existedDocument);
     }
-
     public void deleteDocument(String id) {
         documentRepository.deleteById(id);
     }
