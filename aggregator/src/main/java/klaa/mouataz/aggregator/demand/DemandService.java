@@ -14,7 +14,7 @@ import java.util.List;
 public class DemandService {
     private final UserClient userClient;
 
-    public ResponseEntity<List<DemandDto> > getLockedUsers(){
-        return userClient.getAllLockedUsers();
+    public ResponseEntity<List<DemandDto> > getLockedUsers(String token){
+        return userClient.getAllLockedUsers(token);
     }
 }

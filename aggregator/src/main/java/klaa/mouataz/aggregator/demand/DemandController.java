@@ -1,13 +1,12 @@
 package klaa.mouataz.aggregator.demand;
 
-import klaa.mouataz.shared.user.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -15,7 +14,7 @@ import java.util.List;
 public class DemandController {
     private final DemandService demandService;
     @GetMapping
-    public ResponseEntity<?> getLockedUsers(){
-        return demandService.getLockedUsers();
+    public ResponseEntity<?> getLockedUsers(@RequestHeader("Authorization") String bearerToken){
+        return demandService.getLockedUsers(bearerToken);
     }
 }
