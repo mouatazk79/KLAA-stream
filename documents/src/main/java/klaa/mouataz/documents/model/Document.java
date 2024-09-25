@@ -18,7 +18,6 @@ public class Document extends MongoAudit {
     @Id
     @Indexed(unique=true)
     private String id;
-
     private String name;
     private String description;
     private DocumentType documentType;

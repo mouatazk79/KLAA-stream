@@ -78,4 +78,7 @@ public PageResponse<User> getUsers(int page, int size) {
         return demandDto;
     }
 
+    public void saveUser(User user){
+    userRepository.save(user);
+    }
 }
