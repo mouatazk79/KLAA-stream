@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 public class  User  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 3)
     private UUID id;
     private String email;
     private String username;

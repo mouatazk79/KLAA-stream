@@ -25,5 +25,4 @@ public class Course extends MongoAudit implements Serializable {
     private String imageURL;
     private boolean visible;
 
-
 }

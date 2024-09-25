@@ -29,9 +29,9 @@ public class DocumentController {
     public Document getDocument(@PathVariable("id") String id){
         return documentService.getDocument(id);
     }
-    @PatchMapping("/{id}")
-    public Document updateDocument(@PathVariable("id") String id,@RequestBody Document document){
-        return documentService.updateDocument(id,document);
+    @PutMapping
+    public Document updateDocument(@RequestBody Document document){
+        return documentService.updateDocument(document);
     }
     @PostMapping
     public Document addDocuments(@RequestBody Document document){

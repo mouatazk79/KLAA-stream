@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class StaffDto {
-
     private String firstName;
     private String lastName;
+    private String fullName;
     private String userName;
     private LocalDate dateOfBirth;
     private String phoneNumber;

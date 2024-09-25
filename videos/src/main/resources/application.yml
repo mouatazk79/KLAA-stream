@@ -2,7 +2,8 @@ server:
   port: 8089
   error:
     include-message: always
-
+  http2:
+    enabled: true
 spring:
   application:
     name: video
