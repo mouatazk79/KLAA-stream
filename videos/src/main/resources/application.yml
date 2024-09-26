@@ -2,8 +2,7 @@ server:
   port: 8089
   error:
     include-message: always
-  http2:
-    enabled: true
+
 spring:
   application:
     name: video
@@ -25,9 +24,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-grpc:
-  server:
-    port: 8084
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 
 
 

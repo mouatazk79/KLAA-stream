@@ -5,7 +5,10 @@ server:
 spring:
   application:
     name: api-gateway
-
+management:
+  tracing:
+    sampling:
+      probability: 1.0
   banner:
     location: banner.txt
   cloud:

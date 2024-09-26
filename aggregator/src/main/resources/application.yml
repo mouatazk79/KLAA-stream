@@ -5,7 +5,10 @@ server:
 spring:
   application:
     name: aggregator
-
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 eureka:
   client:
     service-url:

@@ -11,3 +11,7 @@ spring:
           starttls:
            enable: true
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
