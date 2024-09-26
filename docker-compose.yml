@@ -40,6 +40,8 @@ services:
       - ./database/db:/data/db
       - ./database/dev.archive:/Databases/dev.archive
       - ./database/production:/Databases/production
+    networks:
+      - mongo-net
   mongo-express:
     image: mongo-express
     container_name: mexpress
@@ -54,6 +56,8 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8081"
+    networks:
+      - mongo-net
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
@@ -71,15 +75,130 @@ services:
       - klaa
     command:
       - "start-dev"
-
-
-
+  eureka-server:
+    image: klaa79/eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+    depends_on:
+      - zipkin
+  apigw:
+    image: klaa79/api-gateway
+    container_name: apigw
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+    depends_on:
+      - zipkin
+      - eureka-server
+  aggregator:
+    image: klaa79/aggregator
+    container_name: aggregator
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+    depends_on:
+      - zipkin
+      - eureka-server
+  course:
+    image: klaa79/courses
+    container_name: course
+    ports:
+      - "8091:8091"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - mongo-net
+    depends_on:
+      - zipkin
+      - eureka-server
+  document:
+    image: klaa79/documents
+    container_name: document
+    ports:
+      - "8096:8096"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - mongo-net
+    depends_on:
+      - zipkin
+      - eureka-server
+  notification:
+    image: klaa79/notification
+    container_name: notification
+    ports:
+      - "8100:8100"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - mongo-net
+    depends_on:
+      - zipkin
+      - eureka-server
+  staff:
+    image: klaa79/staff
+    container_name: staff
+    ports:
+      - "8094:8094"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - postgres
+    depends_on:
+      - zipkin
+      - eureka-server
+  user:
+    image: klaa79/users
+    container_name: user
+    ports:
+      - "8095:8095"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - postgres
+    depends_on:
+      - zipkin
+      - eureka-server
+  video:
+    image: klaa79/videos
+    container_name: video
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - services
+      - mongo-net
+    depends_on:
+      - zipkin
+      - eureka-server
 
 networks:
   postgres:
     driver: bridge
   klaa:
     driver: bridge
+  services:
+    driver: bridge
+  mongo-net:
+    driver: bridge
+
 
 volumes:
   postgres:
