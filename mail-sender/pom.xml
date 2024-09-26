@@ -11,7 +11,6 @@
     <packaging>jar</packaging>
 
     <artifactId>mail-sender</artifactId>
-
     <build>
         <plugins>
             <plugin>
@@ -22,7 +21,7 @@
     </build>
     <profiles>
         <profile>
-            <id>image-building</id>
+            <id>build-docker-image</id>
             <build>
                 <plugins>
                     <plugin>

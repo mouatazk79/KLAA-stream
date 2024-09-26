@@ -1,0 +1,20 @@
+
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  zipkin:
+    base-url: http://zipkin:9411
+  banner:
+    location: banner.txt
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false

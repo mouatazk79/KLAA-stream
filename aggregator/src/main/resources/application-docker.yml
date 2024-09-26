@@ -1,0 +1,15 @@
+server:
+  port: 8888
+  error:
+    include-message: always
+spring:
+  application:
+    name: aggregator
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/

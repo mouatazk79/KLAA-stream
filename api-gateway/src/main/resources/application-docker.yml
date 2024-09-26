@@ -1,0 +1,72 @@
+server:
+  port: 8090
+  error:
+    include-message: always
+spring:
+  application:
+    name: api-gateway
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  banner:
+    location: banner.txt
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200" # Specify exact origins, avoid using '*'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: '*'
+            allowCredentials: true
+      routes:
+        - id: staff
+          uri: lb://STAFF
+          predicates:
+            - Path= /api/v1/staffs/**
+        - id: notification
+          uri: lb://NOTIFICATION
+          predicates:
+            - Path= /api/v1/notifications/**
+        - id: courses
+          uri: lb://COURSES
+          predicates:
+            - Path= /api/v1/courses/**
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path= /api/v1/users/**
+            - Path= /api/v1/auth/**
+        - id: video
+          uri: lb://VIDEO
+          predicates:
+            - Path= /api/v1/videos/**
+            - Path= /api/v1/videoinfos/**
+        - id: documents
+          uri: lb://DOCUMENTS
+          predicates:
+            - Path= /api/v1/documents/**
+        - id: aggregator
+          uri: lb://AGGREGATOR
+          predicates:
+            - Path= /api/v1/aggregator/**
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+    compatibility-verifier:
+      enabled: false
+
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/

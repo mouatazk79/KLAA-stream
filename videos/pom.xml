@@ -22,7 +22,7 @@
     </build>
     <profiles>
         <profile>
-            <id>image-building</id>
+            <id>build-docker-image</id>
             <build>
                 <plugins>
                     <plugin>
