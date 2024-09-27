@@ -1,0 +1,11 @@
+server:
+  port: 8888
+  error:
+    include-message: always
+spring:
+  application:
+    name: aggregator
+management:
+  tracing:
+    sampling:
+      probability: 1.0

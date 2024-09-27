@@ -1,0 +1,31 @@
+server:
+  port: 8089
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: video
+  banner:
+    location: banner.txt
+  data:
+    mongodb:
+      password: password
+      username: root
+      database: videoinfo
+      port: 27017
+      host: mongo
+      authentication-database: admin
+  servlet:
+    multipart:
+      max-file-size: 2100MB
+      max-request-size: 2100MB
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+
+
