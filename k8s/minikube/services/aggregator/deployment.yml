@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aggregator
+  labels:
+    app: aggregator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: aggregator
+      labels:
+        app: aggregator
+    spec:
+      containers:
+        - name: aggregator
+          image: klaa79/aggregator
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: aggregator

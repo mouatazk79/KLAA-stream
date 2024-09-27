@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staff
+  labels:
+    app: staff
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: staff
+      labels:
+        app: staff
+    spec:
+      containers:
+        - name: staff
+          image: klaa79/staff
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube 
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: staff
