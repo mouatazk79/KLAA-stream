@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="user")
+@FeignClient(name="user",url = "${shared.user.url}")
 public interface UserClient {
     @PostMapping("/api/v1/auth/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
