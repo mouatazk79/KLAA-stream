@@ -13,14 +13,14 @@ spec:
         app: user
     spec:
       containers:
-        - name: user
-          image: klaa79/user
-          imagePullPolicy: IfNotPresent
+        - name: staff
+          image: klaa79/users
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: kube 
+            - name: spring.profiles.active
+              value: k8s
       restartPolicy: Always
   selector:
     matchLabels:

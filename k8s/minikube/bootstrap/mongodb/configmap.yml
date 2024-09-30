@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: mongo-config
 data:
-  MONGO_DB: mongo
-  MONGO_USER: root
-  MONGO_PASSWORD: password
+  MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_INITDB_ROOT_PASSWORD: password
+  MONGO_INITDB_DATABASE: admin

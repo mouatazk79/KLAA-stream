@@ -22,7 +22,7 @@ spec:
           image: postgres
           imagePullPolicy: IfNotPresent
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: "/var/lib/postgresql/data"
               name: postgres
           envFrom:
             - configMapRef:
@@ -34,7 +34,6 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
-
       restartPolicy: Always
   selector:
     matchLabels:

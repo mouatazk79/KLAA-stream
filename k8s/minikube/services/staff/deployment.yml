@@ -15,12 +15,12 @@ spec:
       containers:
         - name: staff
           image: klaa79/staff
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: kube 
+            - name: spring.profiles.active
+              value: k8s
       restartPolicy: Always
   selector:
     matchLabels:

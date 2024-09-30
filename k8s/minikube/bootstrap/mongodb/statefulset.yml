@@ -19,11 +19,11 @@ spec:
             claimName: mongo-pc-volume-claim
       containers:
         - name: mongo
-          image: mongo
-          imagePullPolicy: IfNotPresent
+          image: mongo:5.0
+          imagePullPolicy: Always
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgres
+            - mountPath: /var/lib/mongo/data
+              name: mongo
           envFrom:
             - configMapRef:
                 name: mongo-config

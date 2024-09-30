@@ -20,7 +20,7 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: kube 
+              value: k8s
       restartPolicy: Always
   selector:
     matchLabels:

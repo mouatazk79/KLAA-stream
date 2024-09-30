@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video
+  name: api-gateway
   labels:
-    app: video
+    app: api-gateway
 spec:
   replicas: 1
   template:
     metadata:
-      name: video
+      name: api-gateway
       labels:
-        app: video
+        app: api-gateway
     spec:
       containers:
-        - name: video
-          image: klaa79/videos
+        - name: api-gateway
+          image: klaa79/api-gateway
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -24,4 +24,4 @@ spec:
       restartPolicy: Always
   selector:
     matchLabels:
-      app: video
+      app: api-gateway
