@@ -2,20 +2,34 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building..'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Build and Test') {
             steps {
-                echo 'Testing..'
+                sh 'mvn clean test'
             }
         }
-        stage('Deploy') {
+
+        stage('Merge to Dockerization') {
             steps {
-                echo 'Deploying....'
+                script {
+                    sh """
+                        git checkout dockerization
+                        git merge origin/dev
+                        git push origin dockerization
+                    """
+                }
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }

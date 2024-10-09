@@ -59,18 +59,29 @@ services:
     container_name: zipkin
     ports:
       - "9411:9411"
-  keycloak:
-    container_name: keycloak-bsn
-    image: quay.io/keycloak/keycloak:24.0.2
-    ports:
-      - 9099:8080
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+#  keycloak:
+#    container_name: keycloak-bsn
+#    image: quay.io/keycloak/keycloak:24.0.2
+#    ports:
+#      - 9099:8080
+#    environment:
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#    networks:
+#      - klaa
+#    command:
+#      - "start-dev"
+  ffmpeg:
+    container_name: b2c-ffmpeg
+    image: jrottenberg/ffmpeg
+    #tty: true
     networks:
-      - klaa
-    command:
-      - "start-dev"
+      - b2c
+    ports:
+      - "29002:29000"
+    tty: true
+    entrypoint: "bash"
+
 
 
 
@@ -79,6 +90,8 @@ networks:
   postgres:
     driver: bridge
   klaa:
+    driver: bridge
+  b2c:
     driver: bridge
 
 volumes:
