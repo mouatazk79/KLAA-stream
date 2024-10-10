@@ -20,5 +20,6 @@ public class VideoInfo  {
     private String courseId;
     private String name;
     private String duration;
+    private String path;
 
 }
