@@ -111,9 +111,9 @@ public class VideoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         }
-    @PostMapping
-    String saveMovie(@RequestParam("file") MultipartFile file, @RequestBody VideoInfo info) throws  IOException {
-        videoService.save(info,file);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveMovie(@RequestParam("file") MultipartFile file, @ModelAttribute VideoInfo info) throws IOException {
+        videoService.save(info, file);
         return "Video saved successfully.";
     }
 }
