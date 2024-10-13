@@ -24,6 +24,8 @@ import java.nio.file.Paths;
 @RequestMapping("/api/v1/videos")
 @RequiredArgsConstructor
 public class VideoController {
+    private static  String HSL_DIR = "Z:/springprojects/KLAAschool/videos/src/main/resources/hsl_dir";
+
 
 
     private final VideoService videoService;
@@ -115,6 +117,46 @@ public class VideoController {
     public String saveMovie(@RequestParam("file") MultipartFile file, @ModelAttribute VideoInfo info) throws IOException {
         videoService.save(info, file);
         return "Video saved successfully.";
+    }
+    @GetMapping("/{videoId}/master.m3u8")
+    public ResponseEntity<Resource> serverMasterFile(
+            @PathVariable String videoId
+    ) {
+        Path path = Paths.get(HSL_DIR, videoId, "master.m3u8");
+        System.out.println(path);
+        if (!Files.exists(path)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Resource resource = new FileSystemResource(path);
+        return ResponseEntity
+                .ok()
+                .header(
+                        HttpHeaders.CONTENT_TYPE, "application/vnd.apple.mpegurl"
+                )
+                .body(resource);
+    }
+
+
+    @GetMapping("/{videoId}/{segment}.ts")
+    public ResponseEntity<Resource> serveSegments(
+            @PathVariable String videoId,
+            @PathVariable String segment
+    ) {
+
+        Path path = Paths.get(HSL_DIR, videoId, segment + ".ts");
+        if (!Files.exists(path)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Resource resource = new FileSystemResource(path);
+
+        return ResponseEntity
+                .ok()
+                .header(
+                        HttpHeaders.CONTENT_TYPE, "video/mp2t"
+                )
+                .body(resource);
+
     }
 }
 
