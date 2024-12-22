@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
-    Staff findStaffById(Long id);
+    Optional<Staff> findStaffById(Long id);
    Optional<Staff> findStaffByUserName(String userName);
 }

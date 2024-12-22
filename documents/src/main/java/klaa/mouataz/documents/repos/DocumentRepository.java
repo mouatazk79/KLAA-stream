@@ -6,11 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface DocumentRepository extends MongoRepository<Document,String> {
 
-    Document getDocumentById(String id);
+   Optional<Document> getDocumentById(String id);
 
     Page<Document> findDocumentsByVisibleIsTrue(Pageable pageable);
 

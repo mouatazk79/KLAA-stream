@@ -7,10 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends MongoRepository<Course,String> {
-    Course findCourseById(String id);
+    Optional<Course> findCourseById(String id);
     Course findCourseByName(String name);
     List<Course> findCoursesByTeacherId(Long id);
     Page<Course> findCoursesByVisibleIsTrue(Pageable pageable);

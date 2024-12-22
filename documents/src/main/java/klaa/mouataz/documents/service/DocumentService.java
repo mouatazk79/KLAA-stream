@@ -1,10 +1,12 @@
 package klaa.mouataz.documents.service;
 
+import klaa.mouataz.documents.exception.DocumentNotFoundException;
 import klaa.mouataz.documents.model.Document;
 import klaa.mouataz.documents.repos.DocumentRepository;
 import klaa.mouataz.shared.DocumentPayload;
 import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,8 +15,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class DocumentService {
     private final DocumentRepository documentRepository;
@@ -39,18 +43,29 @@ public class DocumentService {
     }
 
     public Document getDocument(String id) {
-        return documentRepository.getDocumentById(id);
+
+        Optional<Document> document=documentRepository.getDocumentById(id);
+        if(document.isEmpty()){
+            log.error("document not found with id: {}",id);
+            throw new DocumentNotFoundException("document not found with id:"+id);
+        }
+        return document.get();
     }
     public Document updateDocument(Document document) {
-        Document existedDocument= documentRepository.getDocumentById(document.getId());
-        existedDocument.setName(document.getName());
-        existedDocument.setDocumentType(document.getDocumentType());
-        existedDocument.setDocumentURL(document.getDocumentURL());
-
-        System.out.println(existedDocument);
-        return documentRepository.save(existedDocument);
+        Optional<Document> existedDocument= documentRepository.getDocumentById(document.getId());
+        if(existedDocument.isPresent()){
+            existedDocument.get().setName(document.getName());
+            existedDocument.get().setDocumentType(document.getDocumentType());
+            existedDocument.get().setDocumentURL(document.getDocumentURL());
+        }else {
+            log.error("document with id: {} not found",document.getId());
+            throw new DocumentNotFoundException("document with id"+ document.getId()+"not found");
+        }
+        log.info("document with id: {} updated",document.getId());
+        return documentRepository.save(existedDocument.get());
     }
     public void deleteDocument(String id) {
+        log.info("document with id: {} deleted",id);
         documentRepository.deleteById(id);
     }
 

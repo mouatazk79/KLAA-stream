@@ -1,10 +1,12 @@
 package klaa.mouataz.courses.service;
 
+import klaa.mouataz.courses.exception.CourseNotFoundException;
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
 import klaa.mouataz.shared.CoursePayload;
 import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +21,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CourseService {
     private static final String UPLOAD_DIRECTORY = "Z:/springprojects/KLAAschool/courses/src/main/resources/images";
@@ -30,20 +34,13 @@ public class CourseService {
     private final NewTopic topic;
 
 
-
-    public List<Course> getCourses() {
-        return courseRepository.findAll();
-    }
-
     public List<Course> findTeacherCourses(Long id) {
-
         return courseRepository.findCoursesByTeacherId(id);
     }
 
    public PageResponse<Course> findAllVisibleCourses(int page,int size){
 
        Pageable pageable= PageRequest.of(page,size);
-
        Page<Course> courses=courseRepository.findCoursesByVisibleIsTrue(pageable);
        List<Course> coursesList=courses.toList();
        return new PageResponse<>(
@@ -57,17 +54,28 @@ public class CourseService {
 
 
     public Course getCourse(String id) {
-        return courseRepository.findCourseById(id);
+        Optional<Course> course=courseRepository.findCourseById(id);
+        if (course.isEmpty()){
+            log.error("course not found with id: {}",id);
+            throw  new CourseNotFoundException("course not found with id"+id);
+        }
+        return course.get();
     }
 
 
     public Course updateCourse(String id, Course course) {
-        Course existedCourse=courseRepository.findCourseById(id);
-        return courseRepository.save(existedCourse);
+        Optional<Course> existedCourse=courseRepository.findCourseById(id);
+        if (existedCourse.isEmpty()){
+            log.error("course not found with id: {}",id);
+            throw  new CourseNotFoundException("course not found with id"+id);
+        }
+        log.info("course with id:{} update",id);
+        return courseRepository.save(existedCourse.get());
     }
 
 
     public void deleteCourse(String id) {
+        log.info("course with id:{} deleted",id);
         courseRepository.deleteById(id);
 
     }
