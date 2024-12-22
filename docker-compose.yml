@@ -73,14 +73,21 @@ services:
 #      - "start-dev"
   ffmpeg:
     container_name: b2c-ffmpeg
-    image: jrottenberg/ffmpeg
-    #tty: true
+    image: jrottenberg/ffmpeg:latest
     networks:
       - b2c
     ports:
       - "29002:29000"
     tty: true
-    entrypoint: "bash"
+    volumes:
+      - "Z:/springprojects/KLAAschool/videos/src/main/resources/assets:/app/assets"
+      - "Z:/springprojects/KLAAschool/videos/src/main/resources/hsl_dir:/app/hsl_dir"
+    environment:
+      - FFREPORT=file=/tmp/ffmpeg_report.log:level=32
+      - ASSETS_DIR=/app/assets
+      - HLS_DIR=/app/hsl_dir
+    entrypoint: "/bin/bash"
+
 
 
 
@@ -93,6 +100,12 @@ networks:
     driver: bridge
   b2c:
     driver: bridge
+
+
+
+
+
+
 
 volumes:
   postgres:
