@@ -29,10 +29,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 public class CourseController {
     private final ResourceLoader resourceLoader;
     private final CourseService courseService;
-//    @GetMapping
-//    public List<Course> getCourses(){
-//        return courseService.getCourses();
-//    }
+
     @GetMapping("/teacher/{teacherId}")
     public List<Course> getTeacherCourses(@PathVariable("teacherId")Long id){
         return courseService.findTeacherCourses(id);
@@ -68,22 +65,17 @@ public class CourseController {
 
     @GetMapping("/image/**")
     public ResponseEntity<Resource> getImage(HttpServletRequest request) {
-        // Retrieve the relative path from the request
         String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         String bestMatchPattern = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
 
-        // Remove the pattern from the path to get the relative path
         String relativePath = path.replaceFirst(bestMatchPattern.replace("/**", ""), "");
 
         try {
-            // Load the resource using the relative path
             Resource resource = resourceLoader.getResource("classpath:" + relativePath);
 
             if (resource.exists() && resource.isReadable()) {
-                // Determine the content type dynamically
                 String contentType = Files.probeContentType(Paths.get(resource.getURI()));
 
-                // Fallback to a default content type if unknown
                 if (contentType == null) {
                     contentType = MimeTypeUtils.APPLICATION_OCTET_STREAM_VALUE;
                 }
@@ -95,7 +87,6 @@ public class CourseController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
         } catch (IOException e) {
-            // Handle IO exceptions (e.g., file not found, reading error)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

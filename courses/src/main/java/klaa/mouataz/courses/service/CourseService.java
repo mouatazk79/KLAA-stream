@@ -2,7 +2,6 @@ package klaa.mouataz.courses.service;
 
 import klaa.mouataz.courses.model.Course;
 import klaa.mouataz.courses.repos.CourseRepository;
-import klaa.mouataz.courses.util.FileStorageService;
 import klaa.mouataz.shared.CoursePayload;
 import klaa.mouataz.shared.page.PageResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final KafkaTemplate<String,Object> kafkaTemplate;
     private final NewTopic topic;
-    private final FileStorageService fileStorageService;
 
 
 
