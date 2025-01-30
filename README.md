@@ -24,7 +24,9 @@ This project is still on working. </br>
 * video transcoding
 * Adaptive Streaming
 ## Screenshots
+<img width="957" alt="1" src="https://github.com/user-attachments/assets/2a431c7e-1eb3-457f-bfb7-b344cb00d321" />
+<img width="987" alt="2" src="https://github.com/user-attachments/assets/81253fb3-1773-46ff-9f17-657b9a6995a3" />
+<img width="958" alt="3" src="https://github.com/user-attachments/assets/1c0f9307-278a-413a-ba31-fc406da83387" />  
+<img width="956" alt="4" src="https://github.com/user-attachments/assets/6e059b27-c2c3-49d7-a28d-77111e98ff16" />
+<img width="970" alt="7" src="https://github.com/user-attachments/assets/eb7970d0-a658-45dc-9303-fd8e661c61e7" />
 
-
-  
-  
