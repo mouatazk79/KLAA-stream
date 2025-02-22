@@ -1,5 +1,6 @@
 package klaa.mouataz.notification.service;
 
+import klaa.mouataz.notification.exception.NotificationException;
 import klaa.mouataz.notification.exception.NotificationNotFoundException;
 import klaa.mouataz.notification.model.Notification;
 import klaa.mouataz.notification.repos.NotificationRepository;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class NotificationService {
     private final NotificationRepository notificationRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     public PageResponse<Notification> getNotifications(int page, int size) {
 
@@ -64,6 +67,11 @@ public class NotificationService {
 
     public Notification addNotification(Notification notification) {
         log.info("notification with id: {} added",notification.getId());
-        return notificationRepository.save(notification);
+       Notification newNotification =notificationRepository.save(notification);
+       if (newNotification.equals(null)){
+           throw new NotificationException("notification with id"+notification.getId()+" not saved");
+       }
+        simpMessagingTemplate.convertAndSend("/topic/notifications",newNotification);
+        return newNotification;
     }
 }
